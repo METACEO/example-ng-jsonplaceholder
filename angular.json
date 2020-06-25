@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "projects": {
+    "example-ng-jsonplaceholder": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/example-ng-jsonplaceholder",
+      "sourceRoot": "apps/example-ng-jsonplaceholder/src",
+      "prefix": "example-ng-jsonplaceholder",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/example-ng-jsonplaceholder",
+            "index": "apps/example-ng-jsonplaceholder/src/index.html",
+            "main": "apps/example-ng-jsonplaceholder/src/main.ts",
+            "polyfills": "apps/example-ng-jsonplaceholder/src/polyfills.ts",
+            "tsConfig": "apps/example-ng-jsonplaceholder/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/example-ng-jsonplaceholder/src/favicon.ico",
+              "apps/example-ng-jsonplaceholder/src/assets"
+            ],
+            "styles": ["apps/example-ng-jsonplaceholder/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/example-ng-jsonplaceholder/src/environments/environment.ts",
+                  "with": "apps/example-ng-jsonplaceholder/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "example-ng-jsonplaceholder:build",
+            "proxyConfig": "apps/example-ng-jsonplaceholder/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "example-ng-jsonplaceholder:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "example-ng-jsonplaceholder:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/example-ng-jsonplaceholder/tsconfig.app.json",
+              "apps/example-ng-jsonplaceholder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/example-ng-jsonplaceholder/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/example-ng-jsonplaceholder/jest.config.js",
+            "tsConfig": "apps/example-ng-jsonplaceholder/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/example-ng-jsonplaceholder/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "example-ng-jsonplaceholder-e2e": {
+      "root": "apps/example-ng-jsonplaceholder-e2e",
+      "sourceRoot": "apps/example-ng-jsonplaceholder-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/example-ng-jsonplaceholder-e2e/cypress.json",
+            "tsConfig": "apps/example-ng-jsonplaceholder-e2e/tsconfig.e2e.json",
+            "devServerTarget": "example-ng-jsonplaceholder:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "example-ng-jsonplaceholder:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/example-ng-jsonplaceholder-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/example-ng-jsonplaceholder-e2e/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/api/tsconfig.app.json",
+              "apps/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "tsConfig": "apps/api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/api-interfaces/tsconfig.lib.json",
+              "libs/api-interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api-interfaces/jest.config.js",
+            "tsConfig": "libs/api-interfaces/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "example-ng-jsonplaceholder"
+}

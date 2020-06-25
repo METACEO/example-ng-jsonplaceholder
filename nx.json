@@ -1,0 +1,36 @@
+{
+  "npmScope": "example-ng-jsonplaceholder",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "example-ng-jsonplaceholder": {
+      "tags": []
+    },
+    "example-ng-jsonplaceholder-e2e": {
+      "tags": [],
+      "implicitDependencies": ["example-ng-jsonplaceholder"]
+    },
+    "api": {
+      "tags": []
+    },
+    "api-interfaces": {
+      "tags": []
+    }
+  }
+}

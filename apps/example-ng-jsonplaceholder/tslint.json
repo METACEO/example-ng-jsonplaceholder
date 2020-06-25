@@ -1,0 +1,20 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "exampleNgJsonplaceholder",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "example-ng-jsonplaceholder",
+      "kebab-case"
+    ]
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
+  }
+}
