@@ -14,8 +14,15 @@ describe('AppService', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to api!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to api!' });
+    it('should return a single post', () => {
+      expect(service.getData()).toEqual([
+        {
+          body: 'From the api app!',
+          id: 'id',
+          title: 'Just one post!',
+          userId: 'userId'
+        }
+      ]);
     });
   });
 });

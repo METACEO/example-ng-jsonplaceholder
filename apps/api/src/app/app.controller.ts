@@ -1,6 +1,5 @@
+import { Post } from '@example-ng-jsonplaceholder/api-interfaces';
 import { Controller, Get } from '@nestjs/common';
-
-import { Message } from '@example-ng-jsonplaceholder/api-interfaces';
 
 import { AppService } from './app.service';
 
@@ -8,8 +7,8 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('hello')
-  getData(): Message {
+  @Get('posts')
+  getData(): Post[] {
     return this.appService.getData();
   }
 }

@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Message } from '@example-ng-jsonplaceholder/api-interfaces';
+import { Post } from '@example-ng-jsonplaceholder/api-interfaces';
 
 @Injectable()
 export class AppService {
-  getData(): Message {
-    return { message: 'Welcome to api!' };
+  getData(): Post[] {
+    return [
+      {
+        body: 'From the api app!',
+        id: 'id',
+        title: 'Just one post!',
+        userId: 'userId'
+      }
+    ];
   }
 }
